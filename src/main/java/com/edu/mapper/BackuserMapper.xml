@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.edu.mapper.BackuserMapper" >
+  <resultMap id="BaseResultMap" type="com.edu.pojo.Backuser" >
+    <id column="bid" property="bid" jdbcType="INTEGER" />
+    <result column="bname" property="bname" jdbcType="VARCHAR" />
+    <result column="bpassword" property="bpassword" jdbcType="VARCHAR" />
+    <result column="bsex" property="bsex" jdbcType="CHAR" />
+    <result column="bflag" property="bflag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bid, bname, bpassword, bsex, bflag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from backuser
+    where bid = #{bid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from backuser
+    where bid = #{bid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.edu.pojo.Backuser" >
+    insert into backuser (bid, bname, bpassword, 
+      bsex, bflag)
+    values (#{bid,jdbcType=INTEGER}, #{bname,jdbcType=VARCHAR}, #{bpassword,jdbcType=VARCHAR}, 
+      #{bsex,jdbcType=CHAR}, #{bflag,jdbcType=INTEGER})
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.edu.pojo.Backuser" >
+    update backuser
+    set bname = #{bname,jdbcType=VARCHAR},
+      bpassword = #{bpassword,jdbcType=VARCHAR},
+      bsex = #{bsex,jdbcType=CHAR},
+      bflag = #{bflag,jdbcType=INTEGER}
+    where bid = #{bid,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByName"  resultType="com.edu.pojo.Backuser">
+    select *from backuser b where b.bname=#{bname} and b.bpassword=#{bpassword}
+  </select>
+
+</mapper>
